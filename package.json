@@ -1,0 +1,11 @@
+{
+  "name": "chomp-n-veg",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arthur Bottemanne",
+  "license": "ISC",
+  "description": "Chomp N Veg (CPNV for short) is a food tracker app made in the context of a school class at the CPNV"
+}
