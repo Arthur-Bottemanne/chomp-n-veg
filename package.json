@@ -1,11 +1,19 @@
 {
-  "name": "chomp-n-veg",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Arthur Bottemanne",
-  "license": "ISC",
-  "description": "Chomp N Veg (CPNV for short) is a food tracker app made in the context of a school class at the CPNV"
+    "name": "chomp-n-veg",
+    "version": "1.0.0",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "node --watch public/app.js"
+    },
+    "author": "Arthur Bottemanne",
+    "license": "ISC",
+    "description": "Chomp N Veg (CPNV for short) is a food tracker app made in the context of a school class at the CPNV",
+    "dependencies": {
+        "express": "^4.21.2",
+        "module-alias": "^2.2.3"
+    },
+    "_moduleAliases": {
+        "@routes": "app/routes"
+    }
 }
