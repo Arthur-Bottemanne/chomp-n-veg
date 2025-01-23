@@ -10,10 +10,14 @@
     "license": "ISC",
     "description": "Chomp N Veg (CPNV for short) is a food tracker app made in the context of a school class at the CPNV",
     "dependencies": {
+        "dotenv": "^16.4.7",
         "express": "^4.21.2",
-        "module-alias": "^2.2.3"
+        "module-alias": "^2.2.3",
+        "mysql2": "^3.12.0"
     },
     "_moduleAliases": {
-        "@routes": "app/routes"
+        "@routes": "app/routes",
+        "@models": "app/models",
+        "@sql": "database/sql"
     }
 }
