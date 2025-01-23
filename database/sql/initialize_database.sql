@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS chomp_n_veg;
 
 USE chomp_n_veg;
 
-CREATE TABLE IF NOT EXISTS User (
+CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -10,23 +10,24 @@ CREATE TABLE IF NOT EXISTS User (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS Food (
+CREATE TABLE IF NOT EXISTS foods (
     id INT AUTO_INCREMENT PRIMARY KEY,
     fkuser INT NOT NULL,
-    food_name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
     calories DECIMAL(5, 2) NOT NULL,
     protein DECIMAL(5, 2),
     fat DECIMAL(5, 2),
     carbohydrate DECIMAL(5, 2),
     meal_type VARCHAR(50),
     date_eaten DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_user_food FOREIGN KEY (fkuser) REFERENCES User(id)
+    CONSTRAINT fk_users_foods FOREIGN KEY (fkuser) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS Water (
+CREATE TABLE IF NOT EXISTS beverages (
     id INT AUTO_INCREMENT PRIMARY KEY,
     fkuser INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
     liters DECIMAL(5, 2) NOT NULL,
     date_drunk DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_user_water FOREIGN KEY (fkuser) REFERENCES User(id)
+    CONSTRAINT fk_users_beverages FOREIGN KEY (fkuser) REFERENCES users(id)
 );

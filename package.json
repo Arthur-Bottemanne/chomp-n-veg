@@ -4,13 +4,16 @@
     "main": "app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "node --watch public/app.js"
+        "dev": "node --watch public/app.js",
+        "init-db": "node scripts/runSql.js"
     },
     "author": "Arthur Bottemanne",
     "license": "ISC",
     "description": "Chomp N Veg (CPNV for short) is a food tracker app made in the context of a school class at the CPNV",
     "dependencies": {
+        "bcrypt": "^5.1.1",
         "dotenv": "^16.4.7",
+        "ejs": "^3.1.10",
         "express": "^4.21.2",
         "module-alias": "^2.2.3",
         "mysql2": "^3.12.0"
@@ -18,6 +21,6 @@
     "_moduleAliases": {
         "@routes": "app/routes",
         "@models": "app/models",
-        "@sql": "database/sql"
+        "@controllers": "app/controllers"
     }
 }
