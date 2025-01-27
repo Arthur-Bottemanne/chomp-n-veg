@@ -1,11 +1,13 @@
 const bcrypt = require("bcrypt");
 const User = require("@models/User");
 
+const saltRounds = 10;
+
 const registerUser = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         await User.create(name, email, hashedPassword);
 
@@ -16,4 +18,18 @@ const registerUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser };
+const loginUser = async (req, res) => {
+    const { email, password } = req.body;
+
+    let user = await User.getByEmail(email);
+
+    user = user[0] ? user[0] : null;
+
+    console.log(user);
+
+    bcrypt.compare(password, user.password, function (error, result) {
+        console.log(result);
+    });
+};
+
+module.exports = { registerUser, loginUser };

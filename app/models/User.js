@@ -6,6 +6,10 @@ const User = {
             "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
         return database.query(query, [name, email, hashedPassword]);
     },
+    getByEmail: async(email) => {
+        const query = "SELECT name, email, password FROM users WHERE email = ?";
+        return database.query(query, [email])
+    }
 };
 
 module.exports = User;
