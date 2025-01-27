@@ -22,14 +22,21 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     let user = await User.getByEmail(email);
-
     user = user[0] ? user[0] : null;
 
-    console.log(user);
+    const passwordMatch = await bcrypt.compare(password, user.password);
 
-    bcrypt.compare(password, user.password, function (error, result) {
-        console.log(result);
-    });
+    if (!passwordMatch) {
+        return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    const token = jwt.sign(
+        { id: user.id, email: user.email }, 
+        process.env.JWT_SECRET,
+        { expiresIn: '7d' }
+    );
+
+    return res.status(200).json({ message: 'Login successful', token });
 };
 
 module.exports = { registerUser, loginUser };
