@@ -26,7 +26,7 @@ router.post("/login", async (req, res) => {
         maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.json({ message: "woof woof" });
+    res.redirect("/dashboard");
 });
 
 router.get("/register", (req, res) => {
