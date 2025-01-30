@@ -17,7 +17,13 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-    const token = await loginUser(req, res);
+    let token;
+
+    try {
+        token = await loginUser(req, res);
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
 
     res.cookie("token", token, {
         httpOnly: true,

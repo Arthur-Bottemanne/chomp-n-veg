@@ -5,9 +5,19 @@ const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 
 const registerUser = async (req, res) => {
-    const { name, email, password } = req.body;
-
     try {
+        const { name, email, password } = req.body;
+
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        const existingUser = await User.getByEmail(email);
+
+        if (existingUser.length > 0) {
+            return res.status(409).json({ message: "User already exists" });
+        }
+
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         await User.create(name, email, hashedPassword);
@@ -20,24 +30,41 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-    const { email, password } = req.body;
+    try {
 
-    let user = await User.getByEmail(email);
-    user = user[0] ? user[0] : null;
+        const { email, password } = req.body;
 
-    const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!email || !password) {
+            return res
+                .status(400)
+                .json({ message: "Email and password are required" });
+        }
 
-    if (!passwordMatch) {
-        return res.status(401).json({ message: "Invalid email or password" });
+        const user = await User.getByEmail(email);
+
+        if (!user.length) {
+            return res.status(401).json({ message: "Invalid email or password" });
+        }
+
+        user = user[0];
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (!passwordMatch) {
+            return res.status(401).json({ message: "Invalid email or password" });
+        }
+
+        const token = jwt.sign(
+            { id: user.id, email: user.email },
+            process.env.JWT_SECRET,
+            { expiresIn: "7d" }
+        );
+
+        return token;
+    } catch (error) {
+        console.error("Error logging in:", error);
+        throw error;
     }
-
-    const token = jwt.sign(
-        { id: user.id, email: user.email },
-        process.env.JWT_SECRET,
-        { expiresIn: "7d" }
-    );
-
-    return token;
 };
 
 module.exports = { registerUser, loginUser };
