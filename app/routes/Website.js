@@ -16,10 +16,17 @@ router.get("/login", (req, res) => {
     res.render("login");
 });
 
-router.post("/login", (req, res) => {
-    const token = loginUser(req, res);
+router.post("/login", async (req, res) => {
+    const token = await loginUser(req, res);
 
-    console.log(token);
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "Strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.json({ message: "woof woof" });
 });
 
 router.get("/register", (req, res) => {

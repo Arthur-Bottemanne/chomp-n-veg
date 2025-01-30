@@ -2,12 +2,14 @@ const express = require("express");
 require("module-alias/register");
 require("dotenv").config();
 
+const cookieParser = require("cookie-parser");
 const path = require("path");
 const app = express();
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/../app/views/"));
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
