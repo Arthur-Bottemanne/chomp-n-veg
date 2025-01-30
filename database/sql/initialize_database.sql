@@ -14,10 +14,10 @@ CREATE TABLE IF NOT EXISTS consumables (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     type VARCHAR(10) NOT NULL,
-    calories DECIMAL(5, 2) NOT NULL,
-    protein DECIMAL(5, 2),
-    fat DECIMAL(5, 2),
-    carbohydrate DECIMAL(5, 2)
+    calories DECIMAL(5, 1) NOT NULL,
+    protein DECIMAL(5, 1),
+    fat DECIMAL(5, 1),
+    carbohydrate DECIMAL(5, 1)
 );
 
 CREATE TABLE IF NOT EXISTS users_consume_consumables (
