@@ -13,8 +13,13 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const websiteRoutes = require("@routes/Website");
-app.use("/", websiteRoutes);
+const indexRoutes = require("@routes/Index");
+const authenticationRoutes = require("@routes/Authentication");
+const foodRoutes = require("@routes/Food");
+
+app.use("/", indexRoutes);
+app.use("/", authenticationRoutes);
+app.use("/food", foodRoutes);
 
 require("@models/database");
 
