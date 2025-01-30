@@ -9,7 +9,7 @@
     <body class="bg-gray-100 flex justify-center items-center h-screen">
         <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
             <h1 class="text-2xl font-bold text-center mb-6">Create Food</h1>
-            <form action="/foods" method="POST" class="space-y-4">
+            <form action="/food" method="POST" class="space-y-4">
                 <div>
                     <label
                         for="name"
@@ -38,6 +38,7 @@
                         name="calories"
                         class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         placeholder="Enter calories"
+                        step=".1"
                         required
                     />
                 </div>
@@ -54,7 +55,7 @@
                         name="protein"
                         class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         placeholder="Enter protein content"
-                        required
+                        step=".1"
                     />
                 </div>
 
@@ -70,7 +71,7 @@
                         name="fat"
                         class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         placeholder="Enter fat content"
-                        required
+                        step=".1"
                     />
                 </div>
 
@@ -82,11 +83,11 @@
                     >
                     <input
                         type="number"
-                        id="carbohydrates"
-                        name="carbohydrates"
+                        id="carbohydrate"
+                        name="carbohydrate"
                         class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         placeholder="Enter carbohydrate content"
-                        required
+                        step=".1"
                     />
                 </div>
 
