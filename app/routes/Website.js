@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { registerUser, loginUser } = require("@controllers/authController");
-const { verifyToken } = require("@middleware/authMiddleware")
+const { verifyToken } = require("@middleware/authMiddleware");
 
 router.get("/", (req, res) => {
     res.send("Welcome to the website!");
@@ -16,7 +16,11 @@ router.get("/login", (req, res) => {
     res.render("login");
 });
 
-router.post("/login", loginUser);
+router.post("/login", (req, res) => {
+    const token = loginUser(req, res);
+
+    console.log(token);
+});
 
 router.get("/register", (req, res) => {
     res.render("register");

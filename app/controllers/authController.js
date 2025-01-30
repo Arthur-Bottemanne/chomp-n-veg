@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("@models/User");
+const jwt = require("jsonwebtoken");
 
 const saltRounds = 10;
 
@@ -36,7 +37,7 @@ const loginUser = async (req, res) => {
         { expiresIn: '7d' }
     );
 
-    return res.status(200).json({ message: 'Login successful', token });
+    return token;
 };
 
 module.exports = { registerUser, loginUser };
