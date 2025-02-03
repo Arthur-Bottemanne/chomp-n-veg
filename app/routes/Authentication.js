@@ -16,6 +16,8 @@ router.post("/login", async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 
+    if (token === null) return;
+
     res.cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
