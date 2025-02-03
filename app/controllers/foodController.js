@@ -73,13 +73,4 @@ const createFood = async (req, res) => {
     }
 };
 
-const getFoods = async (req, res) => {
-    try {
-        const foods = await Consumable.getAll();
-        return foods;
-    } catch (error) {
-        throw error;
-    }
-};
-
-module.exports = { createFood, getFoods };
+module.exports = { createFood };
