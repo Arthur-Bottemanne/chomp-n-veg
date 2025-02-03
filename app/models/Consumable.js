@@ -17,6 +17,10 @@ const Consumable = {
         const query = "SELECT * FROM consumables WHERE name = ? and type = ?";
         return database.query(query, [name, type]);
     },
+    getAll: async () => {
+        const query = "SELECT * FROM consumables ORDER BY name DESC";
+        return database.query(query, []);
+    },
     searchByName: async (name) => {
         const query = "SELECT * FROM consumables WHERE name LIKE ?";
         return database.query(query, [`%${name}%`]);

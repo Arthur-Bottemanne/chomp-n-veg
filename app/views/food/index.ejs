@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Food Index</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100 flex flex-col items-center p-6">
+        <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md">
+            <h1 class="text-2xl font-bold text-center mb-6">Food List</h1>
+            <table class="w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="p-2 border">Name</th>
+                        <th class="p-2 border">Calories</th>
+                        <th class="p-2 border">Protein</th>
+                        <th class="p-2 border">Fat</th>
+                        <th class="p-2 border">Carbs</th>
+                        <th class="p-2 border">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% foods.forEach(food => { %>
+                    <tr class="border">
+                        <td class="p-2 border"><%= food.name %></td>
+                        <td class="p-2 border"><%= food.calories %> kcal</td>
+                        <td class="p-2 border"><%= food.protein || 0 %> g</td>
+                        <td class="p-2 border"><%= food.fat || 0 %> g</td>
+                        <td class="p-2 border">
+                            <%= food.carbohydrate || 0 %> g
+                        </td>
+                        <td class="p-2 border flex space-x-2 justify-center">
+                            <a
+                                href="/food/edit/<%= food.id %>"
+                                class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
+                                >Edit</a
+                            >
+                            <form
+                                action="/food/delete/<%= food.id %>"
+                                method="POST"
+                                class="inline"
+                            >
+                                <button
+                                    type="submit"
+                                    class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                                >
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <a
+            href="/food/create"
+            class="mt-6 bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            >Create Food</a
+        >
+    </body>
+</html>
