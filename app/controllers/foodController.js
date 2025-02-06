@@ -3,42 +3,21 @@ const Consumable = require("@models/Consumable");
 const type = "food";
 
 const createFood = async (req, res) => {
+    let { name, calories, protein, fat, carbohydrate } = req.body;
+    const isParametersValid = Consumable.validateParameters(
+        name,
+        calories,
+        protein,
+        fat,
+        carbohydrate
+    );
+
+    if (isParametersValid != true) {
+        res.status(400).json({ message: isParametersValid });
+        return;
+    }
+
     try {
-        let { name, calories, protein, fat, carbohydrate } = req.body;
-
-        if (!name || !calories) {
-            return res
-                .status(400)
-                .json({ message: "The name and calories fields are required" });
-        }
-
-        let hasDecimalError = false;
-
-        const decimalPattern = /^\d{1,5}(\.\d{0,1})?$/;
-
-        if (!decimalPattern.test(calories)) {
-            hasDecimalError = true;
-        }
-
-        if (protein && !decimalPattern.test(protein)) {
-            hasDecimalError = true;
-        }
-
-        if (fat && !decimalPattern.test(fat)) {
-            hasDecimalError = true;
-        }
-
-        if (carbohydrate && !decimalPattern.test(carbohydrate)) {
-            hasDecimalError = true;
-        }
-
-        if (hasDecimalError) {
-            return res.status(400).json({
-                message:
-                    "The calories, protein, fat and carbohydrate fields must be a number with at most 5 digits before the decimal point and 1 digit after.",
-            });
-        }
-
         const existingFood = await Consumable.getByNameAndType(name, type);
 
         if (existingFood.length > 0) {
