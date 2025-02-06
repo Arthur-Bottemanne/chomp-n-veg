@@ -59,6 +59,10 @@ const Consumable = {
             id,
         ]);
     },
+    delete: async (id) => {
+        const query = `DELETE FROM consumables WHERE id = ?`;
+        return database.query(query, [id]);
+    },
     getByNameAndType: async (name, type) => {
         const query = "SELECT * FROM consumables WHERE name = ? and type = ?";
         return database.query(query, [name, type]);

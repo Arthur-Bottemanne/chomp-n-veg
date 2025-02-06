@@ -90,11 +90,28 @@ const updateFood = async (req, res) => {
             carbohydrate
         );
 
-        return result;
+        if (result.affectedRows === 0) {
+            return res.status(404).send("Food item not found");
+        }
     } catch (error) {
         console.error(error);
         res.status(500).send("Error registering food");
     }
 };
 
-module.exports = { createFood, updateFood };
+const deleteFood = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const result = await Consumable.delete(id);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Food item not found" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error deleting food");
+    }
+};
+
+module.exports = { createFood, updateFood, deleteFood };
