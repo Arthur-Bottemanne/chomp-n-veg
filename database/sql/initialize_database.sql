@@ -10,24 +10,23 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS foods (
+CREATE TABLE IF NOT EXISTS consumables (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    fkuser INT NOT NULL,
     name VARCHAR(255) NOT NULL,
-    calories DECIMAL(5, 2) NOT NULL,
-    protein DECIMAL(5, 2),
-    fat DECIMAL(5, 2),
-    carbohydrate DECIMAL(5, 2),
-    meal_type VARCHAR(50),
-    date_eaten DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_users_foods FOREIGN KEY (fkuser) REFERENCES users(id)
+    type VARCHAR(10) NOT NULL,
+    calories DECIMAL(5, 1) NOT NULL,
+    protein DECIMAL(5, 1),
+    fat DECIMAL(5, 1),
+    carbohydrate DECIMAL(5, 1)
 );
 
-CREATE TABLE IF NOT EXISTS beverages (
+CREATE TABLE IF NOT EXISTS users_consume_consumables (
     id INT AUTO_INCREMENT PRIMARY KEY,
     fkuser INT NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    liters DECIMAL(5, 2) NOT NULL,
-    date_drunk DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_users_beverages FOREIGN KEY (fkuser) REFERENCES users(id)
+    fkconsumable INT NOT NULL,
+    quantity INT NOT NULL,
+    meal_type VARCHAR(50),
+    date_consumed DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_users_consume_consumables FOREIGN KEY (fkuser) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_consumables_get_consumed_by_users FOREIGN KEY (fkconsumable) REFERENCES consumables(id) ON DELETE CASCADE
 );
