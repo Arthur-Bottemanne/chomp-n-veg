@@ -44,8 +44,6 @@ const createFood = async (req, res) => {
             fat,
             carbohydrate
         );
-
-        res.status(201).send("Food registered successfully");
     } catch (error) {
         console.error(error);
         res.status(500).send("Error registering food");

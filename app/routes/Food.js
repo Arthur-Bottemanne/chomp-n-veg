@@ -46,13 +46,14 @@ router.put("/:id", verifyToken, async (req, res) => {
     }
 });
 
-router.post("/", verifyToken, createFood, (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
+    await createFood(req, res);
     res.redirect("/food");
 });
 
 router.post("/delete/:id", verifyToken, async (req, res) => {
     await deleteFood(req, res);
-    res.redirect("back");
+    res.redirect("/food");
 });
 
 module.exports = router;
