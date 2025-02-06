@@ -44,6 +44,21 @@ const Consumable = {
             carbohydrate,
         ]);
     },
+    update: async (id, name, calories, protein, fat, carbohydrate) => {
+        const query = `
+            UPDATE consumables 
+            SET name = ?, calories = ?, protein = ?, fat = ?, carbohydrate = ?
+            WHERE id = ?
+        `;
+        return database.query(query, [
+            name,
+            calories,
+            protein,
+            fat,
+            carbohydrate,
+            id,
+        ]);
+    },
     getByNameAndType: async (name, type) => {
         const query = "SELECT * FROM consumables WHERE name = ? and type = ?";
         return database.query(query, [name, type]);

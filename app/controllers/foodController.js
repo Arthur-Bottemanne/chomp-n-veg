@@ -52,4 +52,49 @@ const createFood = async (req, res) => {
     }
 };
 
-module.exports = { createFood };
+const updateFood = async (req, res) => {
+    const id = req.params.id;
+    let { name, calories, protein, fat, carbohydrate } = req.body;
+    const isParametersValid = Consumable.validateParameters(
+        name,
+        calories,
+        protein,
+        fat,
+        carbohydrate
+    );
+
+    if (isParametersValid != true) {
+        res.status(400).json({ message: isParametersValid });
+        return;
+    }
+
+    try {
+        if (!protein) {
+            protein = null;
+        }
+
+        if (!fat) {
+            fat = null;
+        }
+
+        if (!carbohydrate) {
+            carbohydrate = null;
+        }
+
+        const result = await Consumable.update(
+            id,
+            name,
+            calories,
+            protein,
+            fat,
+            carbohydrate
+        );
+
+        return result;
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error registering food");
+    }
+};
+
+module.exports = { createFood, updateFood };

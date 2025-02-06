@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { verifyToken } = require("@middleware/authMiddleware");
-const { createFood } = require("@controllers/foodController");
+const { createFood, updateFood } = require("@controllers/foodController");
 const { getFoods, getFoodById } = require("@models/Consumable");
 
 router.get("/", verifyToken, async (req, res) => {
@@ -24,6 +24,21 @@ router.get("/:id/edit", verifyToken, async (req, res) => {
         let food = await getFoodById(req.params.id);
         food = food[0];
         res.render("food/edit", { food });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server error");
+    }
+});
+
+router.put("/:id", verifyToken, async (req, res) => {
+    try {
+        const updated = await updateFood(req, res);
+
+        if (updated.affectedRows === 0) {
+            return res.status(404).send("Food item not found");
+        }
+
+        res.redirect(`/food`);
     } catch (error) {
         console.error(error);
         res.status(500).send("Server error");
