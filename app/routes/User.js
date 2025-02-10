@@ -2,11 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 const { verifyToken } = require("@middleware/authMiddleware");
-const { addConsumableToUser } = require("@controllers/userController");
-const { getConsumables } = require("@models/Consumable");
+const {
+    addConsumableToUser,
+    getConsumablesNotConsumed,
+} = require("@controllers/userController");
 
 router.get("/consumables/add", verifyToken, async (req, res) => {
-    const consumables = await getConsumables();
+    const consumables = await getConsumablesNotConsumed(req, res);
 
     res.render("user/consumable/add", { consumables });
 });

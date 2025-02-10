@@ -26,8 +26,6 @@ const getDashboardData = async (req, res) => {
         })
     );
 
-    console.log(consumablesDetails);
-
     return { consumables: consumablesDetails };
 };
 
