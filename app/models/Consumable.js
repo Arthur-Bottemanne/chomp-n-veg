@@ -77,6 +77,11 @@ const Consumable = {
             "SELECT * FROM consumables WHERE type = 'food' ORDER BY name DESC";
         return database.query(query);
     },
+    getConsumableById: async (id) => {
+        const query =
+            "SELECT * FROM consumables WHERE id = ?";
+        return database.query(query, [id]);
+    },
     getFoodById: async (id) => {
         const query =
             "SELECT * FROM consumables WHERE id = ? and type = 'food'";

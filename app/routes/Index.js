@@ -12,6 +12,8 @@ router.get("/dashboard", verifyToken, async (req, res) => {
     const dashboardData = await getDashboardData(req, res);
     const consumables = dashboardData.consumables;
 
+    console.log(consumables);
+
     res.render("dashboard", { consumables });
 });
 
