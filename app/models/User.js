@@ -7,7 +7,8 @@ const User = {
         return database.query(query, [name, email, hashedPassword]);
     },
     getByEmail: async (email) => {
-        const query = "SELECT name, email, password FROM users WHERE email = ?";
+        const query =
+            "SELECT id, name, email, password FROM users WHERE email = ?";
         return database.query(query, [email]);
     },
 };

@@ -18,10 +18,12 @@ app.use(methodOverride("_method"));
 const indexRoutes = require("@routes/Index");
 const authenticationRoutes = require("@routes/Authentication");
 const foodRoutes = require("@routes/Food");
+const userRoutes = require("@routes/User");
 
 app.use("/", indexRoutes);
 app.use("/", authenticationRoutes);
 app.use("/food", foodRoutes);
+app.use("/user", userRoutes);
 
 require("@models/database");
 
