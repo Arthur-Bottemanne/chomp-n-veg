@@ -4,6 +4,8 @@ const type = "food";
 
 const createFood = async (req, res) => {
     let { name, calories, protein, fat, carbohydrate } = req.body;
+    const imagePath = req.file ? req.file.path : null;
+
     const isParametersValid = Consumable.validateParameters(
         name,
         calories,
@@ -12,7 +14,7 @@ const createFood = async (req, res) => {
         carbohydrate
     );
 
-    if (isParametersValid != true) {
+    if (isParametersValid !== true) {
         res.status(400).json({ message: isParametersValid });
         return;
     }
@@ -24,17 +26,9 @@ const createFood = async (req, res) => {
             return res.status(409).json({ message: "Food already exists" });
         }
 
-        if (!protein) {
-            protein = null;
-        }
-
-        if (!fat) {
-            fat = null;
-        }
-
-        if (!carbohydrate) {
-            carbohydrate = null;
-        }
+        protein = protein || null;
+        fat = fat || null;
+        carbohydrate = carbohydrate || null;
 
         await Consumable.create(
             name,
@@ -42,7 +36,8 @@ const createFood = async (req, res) => {
             calories,
             protein,
             fat,
-            carbohydrate
+            carbohydrate,
+            imagePath
         );
     } catch (error) {
         console.error(error);

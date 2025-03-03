@@ -32,9 +32,9 @@ const Consumable = {
             return true;
         }
     },
-    create: async (name, type, calories, protein, fat, carbohydrate) => {
+    create: async (name, type, calories, protein, fat, carbohydrate, image) => {
         const query =
-            "INSERT INTO consumables (name, type, calories, protein, fat, carbohydrate) VALUES (?, ?, ?, ?, ?, ?)";
+            "INSERT INTO consumables (name, type, calories, protein, fat, carbohydrate, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
         return database.query(query, [
             name,
             type,
@@ -42,6 +42,7 @@ const Consumable = {
             protein,
             fat,
             carbohydrate,
+            image,
         ]);
     },
     update: async (id, name, calories, protein, fat, carbohydrate) => {

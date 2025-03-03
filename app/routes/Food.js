@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 const {
     createFood,
@@ -46,7 +48,7 @@ router.put("/:id", verifyToken, async (req, res) => {
     }
 });
 
-router.post("/", verifyToken, async (req, res) => {
+router.post("/", verifyToken, upload.single("image"), async (req, res) => {
     await createFood(req, res);
     res.redirect("/food");
 });
