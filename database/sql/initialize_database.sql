@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS consumables (
     calories DECIMAL(5, 1) NOT NULL,
     protein DECIMAL(5, 1),
     fat DECIMAL(5, 1),
-    carbohydrate DECIMAL(5, 1)
+    carbohydrate DECIMAL(5, 1),
+    image_url VARCHAR(2083) NULL
 );
 
 CREATE TABLE IF NOT EXISTS users_consume_consumables (
@@ -27,7 +28,6 @@ CREATE TABLE IF NOT EXISTS users_consume_consumables (
     quantity INT NOT NULL,
     meal_type VARCHAR(50),
     date_consumed DATETIME DEFAULT CURRENT_TIMESTAMP,
-    image_url VARCHAR(2083) NULL,
     CONSTRAINT fk_users_consume_consumables FOREIGN KEY (fkuser) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_consumables_get_consumed_by_users FOREIGN KEY (fkconsumable) REFERENCES consumables(id) ON DELETE CASCADE
 );
