@@ -14,6 +14,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use("/uploads", express.static("uploads"));
 
 const indexRoutes = require("@routes/Index");
 const authenticationRoutes = require("@routes/Authentication");
