@@ -17,6 +17,7 @@
         "dotenv": "^16.4.7",
         "ejs": "^3.1.10",
         "express": "^4.21.2",
+        "filestack-js": "^3.38.5",
         "jsonwebtoken": "^9.0.2",
         "method-override": "^3.0.0",
         "module-alias": "^2.2.3",

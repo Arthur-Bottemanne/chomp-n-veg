@@ -5,11 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Create Food</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
     </head>
     <body class="bg-gray-100 flex justify-center items-center h-screen">
         <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
             <h1 class="text-2xl font-bold text-center mb-6">Create Food</h1>
-            <form action="/food" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <form
+                action="/food"
+                method="POST"
+                enctype="multipart/form-data"
+                class="space-y-4"
+            >
                 <div>
                     <label
                         for="name"
@@ -92,16 +98,18 @@
                 </div>
 
                 <div>
-                    <label for="image" class="block text-sm font-medium text-gray-700">
+                    <label class="block text-sm font-medium text-gray-700"
+                        >Upload Image</label
+                    >
+                    <button
+                        type="button"
+                        id="uploadBtn"
+                        class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+                    >
                         Upload Image
-                    </label>
-                    <input
-                        type="file"
-                        id="image"
-                        name="image"
-                        accept="image/*"
-                        class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    />
+                    </button>
+                    <input type="hidden" id="imageUrl" name="imageUrl" />
+                    <p id="imagePreview" class="mt-2 text-sm text-gray-600"></p>
                 </div>
 
                 <div>
@@ -112,6 +120,26 @@
                         Add Food
                     </button>
                 </div>
+
+                <script>
+                    const filestackKey = "<%= filestackKey %>";
+                    const client = filestack.init(filestackKey);
+                    const options = {
+                        onUploadDone: (res) => {
+                            const fileUrl = res.filesUploaded[0].url;
+                            document.getElementById("imageUrl").value = fileUrl;
+                            document.getElementById("imagePreview").innerText =
+                                "Uploaded: " + fileUrl;
+                        },
+                        accept: ["image/jpeg", "image/png"],
+                    };
+
+                    document
+                        .getElementById("uploadBtn")
+                        .addEventListener("click", () => {
+                            client.picker(options).open();
+                        });
+                </script>
             </form>
         </div>
     </body>

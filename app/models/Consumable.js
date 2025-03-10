@@ -1,7 +1,7 @@
 const database = require("@models/database");
 
 const Consumable = {
-    validateParameters: (name, calories, protein, fat, carbohydrate) => {
+    validateParameters: (name, calories, protein, fat, carbohydrate, imageUrl) => {
         if (!name || !calories) {
             return "The name and calories fields are required";
         }

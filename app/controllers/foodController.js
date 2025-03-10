@@ -3,15 +3,22 @@ const Consumable = require("@models/Consumable");
 const type = "food";
 
 const createFood = async (req, res) => {
-    let { name, calories, protein, fat, carbohydrate } = req.body;
-    const imagePath = req.file ? req.file.path : null;
+    let { name, calories, protein, fat, carbohydrate, imageUrl } = req.body;
+
+    console.log(name);
+    console.log(calories);
+    console.log(protein);
+    console.log(fat);
+    console.log(carbohydrate);
+    console.log(imageUrl);
 
     const isParametersValid = Consumable.validateParameters(
         name,
         calories,
         protein,
         fat,
-        carbohydrate
+        carbohydrate,
+        imageUrl
     );
 
     if (isParametersValid !== true) {
@@ -37,7 +44,7 @@ const createFood = async (req, res) => {
             protein,
             fat,
             carbohydrate,
-            imagePath
+            imageUrl
         );
     } catch (error) {
         console.error(error);
