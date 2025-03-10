@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS consumables (
     calories DECIMAL(5, 1) NOT NULL,
     protein DECIMAL(5, 1),
     fat DECIMAL(5, 1),
-    carbohydrate DECIMAL(5, 1)
+    carbohydrate DECIMAL(5, 1),
+    image_url VARCHAR(2083) NULL
 );
 
 CREATE TABLE IF NOT EXISTS users_consume_consumables (
