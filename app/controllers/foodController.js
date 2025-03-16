@@ -3,16 +3,25 @@ const Consumable = require("@models/Consumable");
 const type = "food";
 
 const createFood = async (req, res) => {
-    let { name, calories, protein, fat, carbohydrate } = req.body;
+    let { name, calories, protein, fat, carbohydrate, imageUrl } = req.body;
+
+    console.log(name);
+    console.log(calories);
+    console.log(protein);
+    console.log(fat);
+    console.log(carbohydrate);
+    console.log(imageUrl);
+
     const isParametersValid = Consumable.validateParameters(
         name,
         calories,
         protein,
         fat,
-        carbohydrate
+        carbohydrate,
+        imageUrl
     );
 
-    if (isParametersValid != true) {
+    if (isParametersValid !== true) {
         res.status(400).json({ message: isParametersValid });
         return;
     }
@@ -24,17 +33,9 @@ const createFood = async (req, res) => {
             return res.status(409).json({ message: "Food already exists" });
         }
 
-        if (!protein) {
-            protein = null;
-        }
-
-        if (!fat) {
-            fat = null;
-        }
-
-        if (!carbohydrate) {
-            carbohydrate = null;
-        }
+        protein = protein || null;
+        fat = fat || null;
+        carbohydrate = carbohydrate || null;
 
         await Consumable.create(
             name,
@@ -42,7 +43,8 @@ const createFood = async (req, res) => {
             calories,
             protein,
             fat,
-            carbohydrate
+            carbohydrate,
+            imageUrl
         );
     } catch (error) {
         console.error(error);

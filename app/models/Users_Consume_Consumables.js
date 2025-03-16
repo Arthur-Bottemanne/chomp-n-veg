@@ -11,8 +11,10 @@ const UserConsumeConsumables = {
         return (time = `${hours}:${minutes}:${seconds}`);
     },
     getConsumedConsumables: async (userId) => {
-        const query =
-            "SELECT * FROM users_consume_consumables WHERE fkuser = ?";
+        const query = `
+            SELECT * FROM users_consume_consumables
+            WHERE fkuser = ? AND DATE(date_consumed) = CURDATE();
+        `;
         return database.query(query, [userId]);
     },
     addConsumableToUser: async (userId, consumableId) => {
